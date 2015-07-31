@@ -36,7 +36,7 @@ class Imagick
      * @param integer $height
      * @return tpmanc\imagick\Imagick
      */
-    public function makeThumb($width, $height)
+    public function thumb($width, $height)
     {
         if ($width >= $height) {
             $this->image->thumbnailImage($width, 0);
@@ -52,7 +52,7 @@ class Imagick
      * @param integer $height
      * @return tpmanc\imagick\Imagick
      */
-    public function resizeImage($width, $height)
+    public function resize($width, $height)
     {
         if ($width >= $height) {
             $this->image->adaptiveResizeImage($width, 0);
