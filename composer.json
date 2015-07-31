@@ -1,6 +1,6 @@
 {
     "name": "tpmanc/yii2-imagick",
-    "keywords": ["yii", "imagick"],
+    "keywords": ["yii", "imagick", "yii2"],
     "description": "Yii 2 class for working with Imagick",
     "homepage": "https://github.com/tpmanc/yii2-imagick",
     "license": "BSD-3-Clause",
