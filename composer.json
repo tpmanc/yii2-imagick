@@ -1,0 +1,22 @@
+{
+    "name": "tpmanc/yii2-imagick",
+    "keywords": ["yii", "imagick"],
+    "description": "Yii 2 class for working with Imagick",
+    "homepage": "https://github.com/tpmanc/yii2-imagick",
+    "license": "BSD-3-Clause",
+    "minimum-stability" : "dev",
+    "authors": [
+        {
+            "name": "tpmanc",
+            "email": "tpxtrime@mail.ru",
+            "homepage": "https://github.com/tpmanc",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"tpmanc\\imagick\\": ""}
+    },
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
