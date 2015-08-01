@@ -11,12 +11,18 @@ class Imagick
 {
     private $image;
 
+    
+    private function __construct() {}
+
     /**
      * @param string $imagePath Path to image
+     * @return tpmanc\imagick\Imagick
      */
-    public function __construct($imagePath)
+    public static function open($imagePath)
     {
-        $this->image = new \Imagick($imagePath);
+        $model = new self();
+        $model->image = new \Imagick($imagePath);
+        return $model;
     }
 
     /**
