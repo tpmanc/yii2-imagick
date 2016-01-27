@@ -21,6 +21,7 @@ to the require section of your `composer.json` file.
 
 ```php
 Imagick::open('./image.jpg')->resize(800, 600)->saveTo('./resized.jpg');
+Imagick::open('./image.jpg')->resize(800, false)->saveTo('./resized.jpg');
 ```
 
 ## Create thumbnail

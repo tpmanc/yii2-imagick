@@ -57,7 +57,7 @@ class Imagick
      */
     public function thumb($width, $height)
     {
-        if ($this->width >= $this->height) {
+        if ($this->width >= $this->height || $height === false) {
             $this->image->thumbnailImage($width, 0);
         } else {
             $this->image->thumbnailImage(0, $height);
@@ -73,7 +73,7 @@ class Imagick
      */
     public function resize($width, $height)
     {
-        if ($this->width >= $this->height) {
+        if ($this->width >= $this->height || $height === false) {
             $this->image->adaptiveResizeImage($width, 0);
         } else {
             $this->image->adaptiveResizeImage(0, $height);
