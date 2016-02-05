@@ -101,8 +101,6 @@ Imagick::open('./image.jpg')->blur($radius, $delta)->saveTo('./result.jpg');
 
 ## Watermark
 
-`xSize` and `ySize` 
-
 ### Set watermark position
 
 Use `$xPosition` and `$yPosition` to set watermark position.
