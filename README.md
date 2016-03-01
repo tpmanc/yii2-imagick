@@ -6,13 +6,13 @@ Yii 2 class for working with Imagick.
 Run the following command
 
 ```bash
-$ composer require tpmanc/imagick "*"
+$ composer require tpmanc/yii2-imagick "*"
 ```
 
 or add
 
 ```bash
-$ "tpmanc/imagick": "*"
+$ "tpmanc/yii2-imagick": "*"
 ```
 
 to the require section of your `composer.json` file.
