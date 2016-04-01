@@ -42,7 +42,8 @@ class Imagick
     }
     
     private function __construct()
-    {}
+    {
+    }
 
     /**
      * @param string $imagePath Path to image
