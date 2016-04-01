@@ -45,7 +45,7 @@ class Imagick
 
     /**
      * @param string $imagePath Path to image
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public static function open($imagePath)
     {
@@ -72,7 +72,7 @@ class Imagick
      * Add border
      * @param integer $width Border width
      * @param string $color Border color
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function border($width, $color)
     {
@@ -93,7 +93,7 @@ class Imagick
      * Blur
      * @param float $radius
      * @param float $delta
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function blur($radius, $delta)
     {
@@ -107,7 +107,7 @@ class Imagick
      * @param integer $startY
      * @param integer $width
      * @param integer $height
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function crop($startX, $startY, $width, $height)
     {
@@ -117,7 +117,7 @@ class Imagick
 
     /**
      * Vertical mirror image
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function flip()
     {
@@ -127,7 +127,7 @@ class Imagick
 
     /**
      * Horizontal mirror image
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function flop()
     {
@@ -140,9 +140,12 @@ class Imagick
      * @param string $watermarkPath Path to watermark image
      * @param string $xPos Horizontal position - 'left', 'right' or 'center'
      * @param string $yPos Vertical position - 'top', 'bottom' or 'center'
-     * @param string|integer $xSize Horizontal watermark size: 100, '50%', 'auto' etc.
-     * @param string|integer $ySize Vertical watermark size: 100, '50%', 'auto' etc.
-     * @return tpmanc\imagick\Imagick
+     * @param bool|int|string $xSize Horizontal watermark size: 100, '50%', 'auto' etc.
+     * @param bool|int|string $ySize Vertical watermark size: 100, '50%', 'auto' etc.
+     * @param bool $xOffset
+     * @param bool $yOffset
+     * @return Imagick
+     * @throws InvalidConfigException
      */
     public function watermark($watermarkPath, $xPos, $yPos, $xSize = false, $ySize = false, $xOffset = false, $yOffset = false)
     {
@@ -167,7 +170,6 @@ class Imagick
                 $newSizeY = $this->height * ((float) $float);
             }
         }
-        // var_dump($newSizeX);var_dump($newSizeY);die();
         if ($newSizeX !== false && $newSizeY !== false) {
             $watermark->adaptiveResizeImage($newSizeX, $newSizeY);
         } elseif ($newSizeX !== false && $newSizeY === false) {
@@ -219,7 +221,7 @@ class Imagick
      * Create thumbnail
      * @param integer $width
      * @param integer $height
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function thumb($width, $height)
     {
@@ -235,14 +237,26 @@ class Imagick
      * Resize image
      * @param integer $width
      * @param integer $height
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
+     * @throws InvalidConfigException
      */
     public function resize($width, $height)
     {
-        if ($this->width >= $this->height || $height === false) {
-            $this->image->adaptiveResizeImage($width, 0);
+        if ($height === false && $width === false) {
+            throw new InvalidConfigException('$width and $height can not be false simultaneously');
+        }
+        if ($width !== false && $height !== false) {
+            if ($this->width >= $this->height) {
+                $this->image->adaptiveResizeImage($width, 0);
+            } else {
+                $this->image->adaptiveResizeImage(0, $height);
+            }
         } else {
-            $this->image->adaptiveResizeImage(0, $height);
+            if ($width === false) {
+                $this->image->adaptiveResizeImage(0, $height);
+            } elseif ($height === false) {
+                $this->image->adaptiveResizeImage($width, 0);
+            }
         }
         return $this;
     }
