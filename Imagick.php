@@ -13,13 +13,13 @@ class Imagick
 {
     private $image;
 
-    /** 
-     * @var integer Opened image height 
+    /**
+     * @var integer Opened image height
      */
     private $height;
 
-    /** 
-     * @var integer Opened image width 
+    /**
+     * @var integer Opened image width
      */
     private $width;
 
@@ -41,7 +41,8 @@ class Imagick
         return $this->height;
     }
     
-    private function __construct() {}
+    private function __construct()
+    {}
 
     /**
      * @param string $imagePath Path to image
