@@ -149,8 +149,15 @@ class Imagick
      * @return Imagick
      * @throws InvalidConfigException
      */
-    public function watermark($watermarkPath, $xPos, $yPos, $xSize = false, $ySize = false, $xOffset = false, $yOffset = false)
-    {
+    public function watermark(
+        $watermarkPath,
+        $xPos,
+        $yPos,
+        $xSize = false,
+        $ySize = false,
+        $xOffset = false,
+        $yOffset = false
+    ) {
         $watermark = new \Imagick($watermarkPath);
 
         // resize watermark
@@ -196,7 +203,7 @@ class Imagick
         } elseif ($yPos === 'center') {
             $startY = ($this->height / 2) - ($watermarkSize['height'] / 2);
         } else {
-            throw new InvalidConfigException('Param $yPos should be "top", "bottom" or "center" insteed "'.$yPos.'"', 1);
+            throw new InvalidConfigException('Param $yPos should be "top", "bottom" or "center" insteed "'.$yPos.'"');
         }
 
         if ($xPos === 'left') {
@@ -212,7 +219,7 @@ class Imagick
         } elseif ($xPos === 'center') {
             $startX = ($this->width / 2) - ($watermarkSize['width'] / 2);
         } else {
-            throw new InvalidConfigException('Param $xPos should be "left", "right" or "center" insteed "'.$xPos.'"', 1);
+            throw new InvalidConfigException('Param $xPos should be "left", "right" or "center" insteed "'.$xPos.'"');
         }
 
         $this->image->compositeImage($watermark, \Imagick::COMPOSITE_OVER, $startX, $startY);
