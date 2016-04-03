@@ -41,6 +41,9 @@ class Imagick
         return $this->height;
     }
     
+    /**
+     * Constructor
+     */
     private function __construct()
     {
     }
