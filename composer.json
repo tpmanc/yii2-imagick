@@ -17,10 +17,9 @@
         "psr-4": {"tpmanc\\imagick\\": ""}
     },
     "require": {
-        "php": ">=5.4.0",
-        "yiisoft/yii2": "~2.0.0"
+        "php": ">=5.4.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~5.3"
+        "phpunit/phpunit": "*"
     }
 }
