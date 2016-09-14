@@ -4,8 +4,6 @@
  */
 namespace tpmanc\imagick;
 
-use yii\base\InvalidConfigException;
-
 /**
  * Working with Imagemagick
  */
@@ -150,7 +148,7 @@ class Imagick
      * @param bool $xOffset
      * @param bool $yOffset
      * @return Imagick
-     * @throws InvalidConfigException
+     * @throws Exception
      */
     public function watermark(
         $watermarkPath,
@@ -206,7 +204,7 @@ class Imagick
         } elseif ($yPos === 'center') {
             $startY = ($this->height / 2) - ($watermarkSize['height'] / 2);
         } else {
-            throw new InvalidConfigException('Param $yPos should be "top", "bottom" or "center" insteed "'.$yPos.'"');
+            throw new \Exception('Param $yPos should be "top", "bottom" or "center" insteed "'.$yPos.'"');
         }
 
         if ($xPos === 'left') {
@@ -222,7 +220,7 @@ class Imagick
         } elseif ($xPos === 'center') {
             $startX = ($this->width / 2) - ($watermarkSize['width'] / 2);
         } else {
-            throw new InvalidConfigException('Param $xPos should be "left", "right" or "center" insteed "'.$xPos.'"');
+            throw new \Exception('Param $xPos should be "left", "right" or "center" insteed "'.$xPos.'"');
         }
 
         $this->image->compositeImage($watermark, \Imagick::COMPOSITE_OVER, $startX, $startY);
@@ -250,12 +248,12 @@ class Imagick
      * @param integer $width
      * @param integer $height
      * @return Imagick
-     * @throws InvalidConfigException
+     * @throws Exception
      */
     public function resize($width, $height)
     {
         if ($height === false && $width === false) {
-            throw new InvalidConfigException('$width and $height can not be false simultaneously');
+            throw new \Exception('$width and $height can not be false simultaneously');
         }
         if ($width !== false && $height !== false) {
             if ($this->width >= $this->height) {
