@@ -159,71 +159,73 @@ class Imagick
         $xOffset = false,
         $yOffset = false
     ) {
-        $watermark = new \Imagick($watermarkPath);
+        if ($watermarkPath !== null) {
+            $watermark = new \Imagick($watermarkPath);
 
-        // resize watermark
-        $newSizeX = false;
-        $newSizeY = false;
-        if ($xSize !== false) {
-            if (is_numeric($xSize)) {
-                $newSizeX = $xSize;
-            } elseif (is_string($xSize) && substr($xSize, -1) === '%') {
-                $float = str_replace('%', '', $xSize) / 100;
-                $newSizeX = $this->width * ((float) $float);
+            // resize watermark
+            $newSizeX = false;
+            $newSizeY = false;
+            if ($xSize !== false) {
+                if (is_numeric($xSize)) {
+                    $newSizeX = $xSize;
+                } elseif (is_string($xSize) && substr($xSize, -1) === '%') {
+                    $float = str_replace('%', '', $xSize) / 100;
+                    $newSizeX = $this->width * ((float) $float);
+                }
             }
-        }
-        if ($ySize !== false) {
-            if (is_numeric($ySize)) {
-                $newSizeY = $ySize;
-            } elseif (is_string($ySize) && substr($ySize, -1) === '%') {
-                $float = str_replace('%', '', $ySize) / 100;
-                $newSizeY = $this->height * ((float) $float);
+            if ($ySize !== false) {
+                if (is_numeric($ySize)) {
+                    $newSizeY = $ySize;
+                } elseif (is_string($ySize) && substr($ySize, -1) === '%') {
+                    $float = str_replace('%', '', $ySize) / 100;
+                    $newSizeY = $this->height * ((float) $float);
+                }
             }
-        }
-        if ($newSizeX !== false && $newSizeY !== false) {
-            $watermark->adaptiveResizeImage($newSizeX, $newSizeY);
-        } elseif ($newSizeX !== false && $newSizeY === false) {
-            $watermark->adaptiveResizeImage($newSizeX, 0);
-        } elseif ($newSizeX === false && $newSizeY !== false) {
-            $watermark->adaptiveResizeImage(0, $newSizeY);
-        }
+            if ($newSizeX !== false && $newSizeY !== false) {
+                $watermark->adaptiveResizeImage($newSizeX, $newSizeY);
+            } elseif ($newSizeX !== false && $newSizeY === false) {
+                $watermark->adaptiveResizeImage($newSizeX, 0);
+            } elseif ($newSizeX === false && $newSizeY !== false) {
+                $watermark->adaptiveResizeImage(0, $newSizeY);
+            }
 
-        $startX = false;
-        $startY = false;
-        $watermarkSize = $watermark->getImageGeometry();
-        if ($yPos === 'top') {
-            $startY = 0;
-            if ($yOffset !== false) {
-                $startY += $yOffset;
+            $startX = false;
+            $startY = false;
+            $watermarkSize = $watermark->getImageGeometry();
+            if ($yPos === 'top') {
+                $startY = 0;
+                if ($yOffset !== false) {
+                    $startY += $yOffset;
+                }
+            } elseif ($yPos === 'bottom') {
+                $startY = $this->height - $watermarkSize['height'];
+                if ($yOffset !== false) {
+                    $startY -= $yOffset;
+                }
+            } elseif ($yPos === 'center') {
+                $startY = ($this->height / 2) - ($watermarkSize['height'] / 2);
+            } else {
+                throw new \Exception('Param $yPos should be "top", "bottom" or "center" insteed "'.$yPos.'"');
             }
-        } elseif ($yPos === 'bottom') {
-            $startY = $this->height - $watermarkSize['height'];
-            if ($yOffset !== false) {
-                $startY -= $yOffset;
-            }
-        } elseif ($yPos === 'center') {
-            $startY = ($this->height / 2) - ($watermarkSize['height'] / 2);
-        } else {
-            throw new \Exception('Param $yPos should be "top", "bottom" or "center" insteed "'.$yPos.'"');
-        }
 
-        if ($xPos === 'left') {
-            $startX = 0;
-            if ($xOffset !== false) {
-                $startX += $xOffset;
+            if ($xPos === 'left') {
+                $startX = 0;
+                if ($xOffset !== false) {
+                    $startX += $xOffset;
+                }
+            } elseif ($xPos === 'right') {
+                $startX = $this->width - $watermarkSize['width'];
+                if ($xOffset !== false) {
+                    $startX -= $xOffset;
+                }
+            } elseif ($xPos === 'center') {
+                $startX = ($this->width / 2) - ($watermarkSize['width'] / 2);
+            } else {
+                throw new \Exception('Param $xPos should be "left", "right" or "center" insteed "'.$xPos.'"');
             }
-        } elseif ($xPos === 'right') {
-            $startX = $this->width - $watermarkSize['width'];
-            if ($xOffset !== false) {
-                $startX -= $xOffset;
-            }
-        } elseif ($xPos === 'center') {
-            $startX = ($this->width / 2) - ($watermarkSize['width'] / 2);
-        } else {
-            throw new \Exception('Param $xPos should be "left", "right" or "center" insteed "'.$xPos.'"');
-        }
 
-        $this->image->compositeImage($watermark, \Imagick::COMPOSITE_OVER, $startX, $startY);
+            $this->image->compositeImage($watermark, \Imagick::COMPOSITE_OVER, $startX, $startY);
+        }
         return $this;
     }
 
