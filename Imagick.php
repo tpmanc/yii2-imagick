@@ -237,11 +237,14 @@ class Imagick
      */
     public function thumb($width, $height)
     {
-        if ($this->width >= $this->height || $height === false) {
-            $this->image->thumbnailImage($width, 0);
-        } else {
-            $this->image->thumbnailImage(0, $height);
+        if ($this->width > $width || $this->height > $height) {
+            if ($this->width >= $this->height || $height === false) {
+                $this->image->thumbnailImage($width, 0);
+            } else {
+                $this->image->thumbnailImage(0, $height);
+            }
         }
+
         return $this;
     }
 
